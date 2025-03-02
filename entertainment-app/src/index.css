@@ -1,0 +1,18 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --color-prime-100: rgb(255, 255, 255);
+  --color-prime-200: rgb(90, 106, 144);
+  --color-prime-700: rgb(23, 30, 49);
+  --color-prime-800: rgb(16, 20, 30);
+  --color-danger-100: rgb(252, 71, 71);
+}
+
+body {
+  font-family: "Outfit", sans-serif;
+}
+
+a.active svg {
+  fill: var(--color-danger-100);
+}
