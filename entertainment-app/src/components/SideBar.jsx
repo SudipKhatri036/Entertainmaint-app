@@ -3,7 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 
 function SideBar() {
   return (
-    <aside className="md:fixed flex w-full md:w-auto md:flex-col items-center justify-between bg-prime-700 md:h-[80vh]  px-6 py-8 rounded-lg">
+    <aside className="lg:fixed flex w-full lg:w-auto lg:flex-col items-center justify-between z-20 bg-prime-700 lg:h-[80vh]  px-6 py-8 rounded-lg">
       <Link to="/">
         <svg
           className="h-[25px] w-[30px] lg:h-[28.6px] lg:w-[38px]"
@@ -16,7 +16,7 @@ function SideBar() {
           ></path>
         </svg>
       </Link>
-      <ul className="flex md:flex-col items-center gap-4 md:gap-8">
+      <ul className="flex lg:flex-col items-center gap-4 lg:gap-8">
         <li>
           <NavLink to="/">
             <svg

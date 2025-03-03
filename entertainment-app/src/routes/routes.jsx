@@ -5,6 +5,8 @@ import Login from "../pages/Login";
 import Movies from "../pages/Movies";
 import TvSeries from "../pages/TvSeries";
 import PageNotFound from "../pages/PageNotFound";
+import DetailPage from "../pages/DetailPage";
+import ListPage from "../pages/ListPage";
 
 const router = createBrowserRouter([
   {
@@ -20,8 +22,24 @@ const router = createBrowserRouter([
         element: <Movies />,
       },
       {
+        path: "/movies/genre",
+        element: <ListPage />,
+      },
+      {
         path: "/series",
         element: <TvSeries />,
+      },
+      {
+        path: "/series/genre",
+        element: <ListPage />,
+      },
+      {
+        path: "/movies/:id",
+        element: <DetailPage />,
+      },
+      {
+        path: "/series/:id",
+        element: <DetailPage />,
       },
     ],
   },

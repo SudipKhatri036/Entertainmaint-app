@@ -4,9 +4,35 @@
 @theme {
   --color-prime-100: rgb(255, 255, 255);
   --color-prime-200: rgb(90, 106, 144);
+  --color-prime-300: hsl(223 3% 54%/1);
   --color-prime-700: rgb(23, 30, 49);
   --color-prime-800: rgb(16, 20, 30);
   --color-danger-100: rgb(252, 71, 71);
+
+  --animate-wiggle: wiggle 0.4s;
+  --animate-wiggleOp: wiggleOp 0.4s;
+
+  @keyframes wiggle {
+    0%,
+    100% {
+      transform: skewY(0deg);
+    }
+
+    50% {
+      transform: skewY(-3deg);
+    }
+  }
+
+  @keyframes wiggleOp {
+    0%,
+    100% {
+      transform: skewY(0deg);
+    }
+
+    50% {
+      transform: skewY(3deg);
+    }
+  }
 }
 
 body {
@@ -15,4 +41,37 @@ body {
 
 a.active svg {
   fill: var(--color-danger-100);
+}
+
+.movie-grid .movie-grid-child:nth-last-child(-n + 2) {
+  @apply md:col-span-2; /* Apply Tailwind utilities */
+}
+
+.movie-grid .movie-grid-child:nth-last-child(-n + 2) img {
+  @apply h-56 w-full object-cover;
+}
+
+.movie-genre-parent .genre-child .genre-gChild:nth-child(odd) {
+  @apply bg-cyan-700;
+}
+
+.series-genre-parent .genre-child .genre-gChild:nth-child(odd) {
+  @apply bg-teal-700;
+}
+
+.movie-genre-parent .genre-child .genre-gChild:nth-child(odd),
+.series-genre-parent .genre-child .genre-gChild:nth-child(odd) {
+  @apply hover:animate-wiggle; /* Apply Tailwind utilities */
+}
+.movie-genre-parent .genre-child .genre-gChild:nth-child(even),
+.series-genre-parent .genre-child .genre-gChild:nth-child(even) {
+  @apply hover:animate-wiggleOp; /* Apply Tailwind utilities */
+}
+
+.movie-genre-parent .genre-child .genre-gChild:last-child {
+  @apply col-span-2 sm:col-span-3 md:col-span-2 lg:col-span-6; /* Apply Tailwind utilities */
+}
+
+.series-genre-parent .genre-child .genre-gChild:last-child {
+  @apply sm:col-span-3 md:col-span-1 lg:col-span-3;
 }
