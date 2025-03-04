@@ -1,5 +1,7 @@
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Genre from "../components/Genre";
 import { useLocation } from "react-router-dom";
+import { getSeriesGenre } from "../services/apiSeries";
 
 const genres = [
   "Action & Adventure",
@@ -21,11 +23,18 @@ const genres = [
 ];
 
 function TvSeries() {
+  const queryClient = useQueryClient();
+
+  const { data, isLoading } = useQuery({
+    queryKey: ["seriesGenre"],
+    queryFn: getSeriesGenre,
+  });
+
   let { pathname } = useLocation();
 
   return (
     <div className="series-genre-parent mt-8">
-      <Genre genres={genres} pathname={pathname} />
+      <Genre genres={data?.genres} pathname={pathname} isLoading={isLoading} />
     </div>
   );
 }

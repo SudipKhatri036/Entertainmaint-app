@@ -1,30 +1,48 @@
 import React from "react";
-import { MdMovieCreation } from "react-icons/md";
+import { MdMovieCreation, MdLiveTv } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { getFirstDate, shortifyName } from "../utils/helper";
 
-function MovieCard() {
+function MovieCard({ cardData, type }) {
   return (
     <Link
-      className="movie-grid-child  mb-4 cursor-pointer"
-      to={`/movies/moviename`}
+      className="movie-grid-child  mb-4 cursor-pointer hover:animate-wiggle"
+      to={`/${type}/${cardData?.id}`}
     >
-      <div className="">
+      <div className="h-[133px] md:h-[140px] lg:h-[174px]">
         <img
-          src="https://cdn.pixabay.com/photo/2020/04/20/18/10/cinema-5069314_1280.jpg"
+          src={
+            cardData
+              ? `https://image.tmdb.org/t/p/w500/${cardData?.backdrop_path}`
+              : "https://cdn.pixabay.com/photo/2015/06/24/02/12/the-blurred-819388_960_720.jpg"
+          }
           alt="Sample img"
-          className="rounded-lg h-56 md:h-auto object-cover w-full"
+          // className="rounded-lg min-h-72 object-cover w-full"
+          className="max-w-full h-full w-full object-cover rounded-lg"
         />
       </div>
       <div className="flex items-center gap-2 mt-2">
-        <p className="font-light">2024</p>
+        <p className="font-light">
+          {getFirstDate(cardData?.release_date) ||
+            getFirstDate(cardData?.first_air_date)}
+        </p>
         <span className="w-1 h-1 rounded-full bg-white"></span>
         <div className="flex items-center gap-1 font-light">
-          <MdMovieCreation />
-          <p>Movie</p>
+          {type === "movies" ? (
+            <>
+              <MdMovieCreation />
+              <p>Movie</p>
+            </>
+          ) : (
+            <>
+              <MdLiveTv />
+              <p>Tv Series</p>
+            </>
+          )}
         </div>
       </div>
       <h2 className="text-lg md:text-xl font-semibold capitalize">
-        Movie Name
+        {shortifyName(cardData?.title) || shortifyName(cardData?.name)}
       </h2>
     </Link>
   );

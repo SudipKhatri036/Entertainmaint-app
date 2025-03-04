@@ -1,19 +1,6 @@
 import { IoSearch } from "react-icons/io5";
 
 function SearchBar() {
-  const url =
-    "https://api.themoviedb.org/3/movie/popular?api_key=4a57617bc4ed215b6aecb7e77420ee0f";
-  const options = {
-    method: "GET",
-    headers: {
-      accept: "application/json",
-    },
-  };
-
-  fetch(url, options)
-    .then((res) => res.json())
-    .then((json) => console.log(json))
-    .catch((err) => console.error(err));
   return (
     <div className="w-full flex items-center gap-4 py-6">
       <label htmlFor="search-inp" className="text-xl md:text-3xl">
