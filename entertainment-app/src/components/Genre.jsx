@@ -14,7 +14,7 @@ function Genre({ genres = [], pathname, isLoading }) {
       {isLoading && <Loader />}
       {!isLoading &&
         genres.map((gen) => (
-          <GenreCard gen={gen.name} pathname={pathname} key={gen.id} />
+          <GenreCard gen={gen} pathname={pathname} key={gen.id} />
         ))}
     </div>
   );

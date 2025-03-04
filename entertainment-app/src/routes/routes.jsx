@@ -22,16 +22,12 @@ const router = createBrowserRouter([
         element: <Movies />,
       },
       {
-        path: "/movies/genre",
+        path: "/:isSeries/genre",
         element: <ListPage />,
       },
       {
         path: "/series",
         element: <TvSeries />,
-      },
-      {
-        path: "/:series/genre",
-        element: <ListPage />,
       },
 
       {

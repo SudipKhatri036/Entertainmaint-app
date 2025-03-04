@@ -13,11 +13,12 @@ function MovieCard({ cardData, type }) {
         <img
           src={
             cardData
-              ? `https://image.tmdb.org/t/p/w500/${cardData?.backdrop_path}`
+              ? `https://image.tmdb.org/t/p/w500/${
+                  cardData?.backdrop_path || cardData?.poster_path
+                }`
               : "https://cdn.pixabay.com/photo/2015/06/24/02/12/the-blurred-819388_960_720.jpg"
           }
-          alt="Sample img"
-          // className="rounded-lg min-h-72 object-cover w-full"
+          alt={`${cardData?.title || cardData?.name} image`}
           className="max-w-full h-full w-full object-cover rounded-lg"
         />
       </div>
