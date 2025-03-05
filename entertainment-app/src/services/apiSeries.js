@@ -1,7 +1,7 @@
 export async function getSeriesGenre() {
   try {
     const req = await fetch(
-      `https://api.themoviedb.org/3/genre/tv/list?language=en&api_key=${
+      `${import.meta.env.VITE_BASE_URL}/genre/tv/list?language=en&api_key=${
         import.meta.env.VITE_API_KEY
       }`
     );
@@ -11,13 +11,14 @@ export async function getSeriesGenre() {
     return data;
   } catch (error) {
     console.log(error);
+    return error;
   }
 }
 
 export async function getTrendingOfWeekS() {
   try {
     const req = await fetch(
-      `https://api.themoviedb.org/3/trending/tv/week?language=en&api_key=${
+      `${import.meta.env.VITE_BASE_URL}/trending/tv/week?language=en&api_key=${
         import.meta.env.VITE_API_KEY
       }`
     );
@@ -27,13 +28,14 @@ export async function getTrendingOfWeekS() {
     return data;
   } catch (error) {
     console.log(error);
+    return error;
   }
 }
 
 export async function getPopularSeries() {
   try {
     const req = await fetch(
-      `https://api.themoviedb.org/3/tv/popular?language=en&api_key=${
+      `${import.meta.env.VITE_BASE_URL}/tv/popular?language=en&api_key=${
         import.meta.env.VITE_API_KEY
       }`
     );
@@ -43,13 +45,14 @@ export async function getPopularSeries() {
     return data;
   } catch (error) {
     console.log(error);
+    return error;
   }
 }
 
 export async function getTopRatedSeries() {
   try {
     const req = await fetch(
-      `https://api.themoviedb.org/3/tv/top_rated?language=en&api_key=${
+      `${import.meta.env.VITE_BASE_URL}/tv/top_rated?language=en&api_key=${
         import.meta.env.VITE_API_KEY
       }`
     );
@@ -59,12 +62,13 @@ export async function getTopRatedSeries() {
     return data;
   } catch (error) {
     console.log(error);
+    return error;
   }
 }
 export async function getTodayAiringSeries() {
   try {
     const req = await fetch(
-      `https://api.themoviedb.org/3/tv/airing_today?language=en&api_key=${
+      `${import.meta.env.VITE_BASE_URL}/tv/airing_today?language=en&api_key=${
         import.meta.env.VITE_API_KEY
       }`
     );
@@ -74,13 +78,14 @@ export async function getTodayAiringSeries() {
     return data;
   } catch (error) {
     console.log(error);
+    return error;
   }
 }
 
 export async function getUpcomingAiringSeries() {
   try {
     const req = await fetch(
-      `https://api.themoviedb.org/3/tv/on_the_air?language=en&api_key=${
+      `${import.meta.env.VITE_BASE_URL}/tv/on_the_air?language=en&api_key=${
         import.meta.env.VITE_API_KEY
       }`
     );
@@ -90,5 +95,6 @@ export async function getUpcomingAiringSeries() {
     return data;
   } catch (error) {
     console.log(error);
+    return error;
   }
 }

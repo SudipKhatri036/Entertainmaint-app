@@ -6,9 +6,9 @@ import { getCasts, getDetail } from "../services/apiPublic";
 import { getFirstDate } from "../utils/helper";
 import { useEffect, useState } from "react";
 import ExtraDetail from "../components/ExtraDetail";
+import Loader from "../components/Loader";
 
 function DetailPage() {
-  const queryClient = useQueryClient();
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const navigate = useNavigate();
   const { type = "", id = "" } = useParams();
@@ -25,11 +25,11 @@ function DetailPage() {
 
   const isSeries = type !== "movies" ? "tv" : "movie";
 
-  const { data, isLoading } = useQuery({
+  const { data, status } = useQuery({
     queryKey: [`Details`, isSeries, id],
     queryFn: () => getDetail(isSeries, id),
   });
-  console.log(data);
+
   const { data: casts } = useQuery({
     queryKey: [`casts`, isSeries, id],
     queryFn: () => getCasts(isSeries, id),
@@ -47,6 +47,9 @@ function DetailPage() {
     imageSrc = data?.poster_path;
   }
 
+  {
+    status === "pending" && <Loader />;
+  }
   return (
     <div className="flex flex-col md:flex-row mt-8 gap-8 lg:px-16 relative">
       <div className="absolute top-[-45px]  left-0 border-2 border-prime-300 py-2 px-2 rounded-3xl flex">
@@ -119,7 +122,7 @@ function DetailPage() {
         {/* Casts */}
 
         {/* Action Btn */}
-        <div className="flex mt-7 gap-4">
+        <div className="flex mt-7 gap-4 flex-wrap">
           <Link
             to={data?.homepage}
             target="_blank"

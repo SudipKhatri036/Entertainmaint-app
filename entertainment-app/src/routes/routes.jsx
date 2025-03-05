@@ -4,9 +4,10 @@ import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Movies from "../pages/Movies";
 import TvSeries from "../pages/TvSeries";
-import PageNotFound from "../pages/PageNotFound";
 import DetailPage from "../pages/DetailPage";
 import ListPage from "../pages/ListPage";
+import ResultPage from "../pages/ResultPage";
+import PageNotFound from "../components/PageNotFound";
 
 const router = createBrowserRouter([
   {
@@ -34,20 +35,20 @@ const router = createBrowserRouter([
         path: "/:type/:id",
         element: <DetailPage />,
       },
-
       {
         path: "/series/:id",
         element: <DetailPage />,
       },
+      {
+        path: "/results",
+        element: <ResultPage />,
+      },
+      { path: "*", element: <PageNotFound /> },
     ],
   },
   {
     path: "/login",
     element: <Login />,
-  },
-  {
-    path: "*",
-    element: <PageNotFound />,
   },
 ]);
 

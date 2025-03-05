@@ -1,22 +1,67 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import React from "react";
+import {
+  useInfiniteQuery,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
+import { useInView } from "react-intersection-observer";
 import { useParams, useSearchParams } from "react-router-dom";
 import { getLists, getListsFromGenre } from "../services/apiPublic";
 import Loader from "../components/Loader";
 import MovieCard from "../components/MovieCard";
+import { useEffect } from "react";
+import ErrorData from "../components/ErrorData";
 
 function ListPage() {
   const queryClient = useQueryClient();
   let [searchParams] = useSearchParams();
   const name = searchParams.get("name");
-  const id = searchParams.get("id");
+  const genreId = searchParams.get("id") || "";
   const { isSeries } = useParams();
 
-  const { data, isLoading } = useQuery({
-    queryKey: [`${name}Lists`, isSeries, name],
-    queryFn: () =>
-      id ? getListsFromGenre(isSeries, id) : getLists(isSeries, name),
+  // const { data, status } = useQuery({
+  //   queryKey: [`${name}Lists`, isSeries, name],
+  //   queryFn: () =>
+  //     id ? getListsFromGenre(isSeries, id) : getLists(isSeries, name),
+  // });
+
+  // const { ref, inView } = useInView({
+  //   threshold: 0.5,
+  // });
+
+  const {
+    data,
+    error,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    status,
+  } = useInfiniteQuery({
+    queryKey: ["project", genreId, isSeries, name],
+    queryFn: ({ pageParam = 1 }) => {
+      return genreId
+        ? getListsFromGenre({ isSeries, genreId, pageParam })
+        : getLists({ isSeries, name, pageParam });
+    },
+    initialPageParam: 1,
+    getNextPageParam: (lastPage, allPages) => {
+      return lastPage?.results?.length === 20 ? allPages.length + 1 : undefined;
+    },
   });
+
+  function handleScroll() {
+    const bottom =
+      window.innerHeight + window.scrollY >=
+      document.documentElement.scrollHeight - 1;
+
+    if (bottom && hasNextPage) {
+      fetchNextPage();
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [hasNextPage]);
 
   return (
     <div className="mt-8">
@@ -26,15 +71,28 @@ function ListPage() {
           {isSeries}
         </p>
       </div>
-      <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 gap-4 mt-6 [&>*:nth-child(odd)]:hover:animate-wiggle [&>*:nth-child(even)]:hover:animate-wiggleOp">
-        {isLoading && <Loader />}
-        {data?.results?.map((result) => (
-          <MovieCard
-            cardData={result}
-            type={isSeries === "movies" ? "movies" : "series"}
-          />
-        ))}
+      <div>
+        {status === "pending" && <Loader />}
+        {data?.pages.length < 1 && <ErrorData err={data?.pages} />}
+        {data?.pages?.map((page, index) => {
+          return (
+            <div
+              className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 gap-4 mt-6 [&>*:nth-child(odd)]:hover:animate-wiggle [&>*:nth-child(even)]:hover:animate-wiggleOp"
+              key={index}
+            >
+              {page?.results?.map((result) => (
+                <MovieCard
+                  cardData={result}
+                  type={isSeries === "movies" ? "movies" : "series"}
+                  key={result?.id}
+                />
+              ))}
+            </div>
+          );
+        })}
       </div>
+
+      {isFetchingNextPage && <Loader />}
     </div>
   );
 }
