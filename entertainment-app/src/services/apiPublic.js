@@ -22,7 +22,7 @@ export async function getCasts(type, id) {
     const req = await fetch(
       `${
         import.meta.env.VITE_BASE_URL
-      }${type}/${id}/credits?language=en&api_key=${
+      }/${type}/${id}/credits?language=en&api_key=${
         import.meta.env.VITE_API_KEY
       }`
     );
@@ -49,7 +49,7 @@ export async function getLists({ isSeries, name, pageParam = 1 }) {
       req = await fetch(
         `${
           import.meta.env.VITE_BASE_URL
-        }${spaceRemoved}/${typeOfData}/week?language=en&api_key=${
+        }/${spaceRemoved}/${typeOfData}/week?language=en&api_key=${
           import.meta.env.VITE_API_KEY
         }&page=${pageParam}`
       );
@@ -57,7 +57,7 @@ export async function getLists({ isSeries, name, pageParam = 1 }) {
       req = await fetch(
         `${
           import.meta.env.VITE_BASE_URL
-        }${typeOfData}/upcoming?language=en&api_key=${
+        }/${typeOfData}/upcoming?language=en&api_key=${
           import.meta.env.VITE_API_KEY
         }`
       );
@@ -65,7 +65,7 @@ export async function getLists({ isSeries, name, pageParam = 1 }) {
       req = await fetch(
         `${
           import.meta.env.VITE_BASE_URL
-        }${typeOfData}/${spaceRemoved}?language=en&api_key=${
+        }/${typeOfData}/${spaceRemoved}?language=en&api_key=${
           import.meta.env.VITE_API_KEY
         }`
       );
@@ -73,6 +73,7 @@ export async function getLists({ isSeries, name, pageParam = 1 }) {
 
     if (!req.ok) throw new Error(`Error getting ${typeOfData} Lists`);
     const data = await req.json();
+    console.log(data);
 
     return data;
   } catch (error) {

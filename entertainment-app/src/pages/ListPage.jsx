@@ -18,16 +18,6 @@ function ListPage() {
   const genreId = searchParams.get("id") || "";
   const { isSeries } = useParams();
 
-  // const { data, status } = useQuery({
-  //   queryKey: [`${name}Lists`, isSeries, name],
-  //   queryFn: () =>
-  //     id ? getListsFromGenre(isSeries, id) : getLists(isSeries, name),
-  // });
-
-  // const { ref, inView } = useInView({
-  //   threshold: 0.5,
-  // });
-
   const {
     data,
     error,
