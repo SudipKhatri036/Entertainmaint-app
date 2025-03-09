@@ -60,7 +60,7 @@ function SideBar() {
           </NavLink>
         </li>
       </ul>
-      <Link to="/user" className="block w-12">
+      <Link to="/login" className="block w-12">
         <img
           src="/avatar.png"
           alt="Avatar image"

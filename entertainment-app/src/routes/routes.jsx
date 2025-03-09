@@ -1,13 +1,13 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import Home from "../pages/Home";
-import Login from "../pages/Login";
 import Movies from "../pages/Movies";
 import TvSeries from "../pages/TvSeries";
 import DetailPage from "../pages/DetailPage";
 import ListPage from "../pages/ListPage";
 import ResultPage from "../pages/ResultPage";
 import PageNotFound from "../components/PageNotFound";
+import Login from "../components/auth/Login";
 
 const router = createBrowserRouter([
   {
