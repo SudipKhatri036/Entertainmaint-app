@@ -1,0 +1,1 @@
+const forGithub = "github.com";
