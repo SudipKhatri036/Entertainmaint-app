@@ -5,7 +5,7 @@ import "swiper/css";
 import "swiper/css/scrollbar";
 import Loader from "./Loader";
 
-function Sliders({ sliderData = [], isLoading, type }) {
+function Sliders({ sliderData = [], status, type }) {
   return (
     <Swiper
       spaceBetween={50}
@@ -28,8 +28,8 @@ function Sliders({ sliderData = [], isLoading, type }) {
         },
       }}
     >
-      {isLoading && <Loader />}
-      {sliderData?.map((data) => (
+      {status === "pending" && <Loader />}
+      {sliderData?.data?.results?.map((data) => (
         <SwiperSlide key={data?.id}>
           <SliderCard cardData={data} type={type} />
         </SwiperSlide>

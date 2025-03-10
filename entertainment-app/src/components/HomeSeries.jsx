@@ -1,86 +1,74 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import {
-  getPopularSeries,
-  getTodayAiringSeries,
-  getTopRatedSeries,
-  getTrendingOfWeekS,
-  getUpcomingAiringSeries,
-} from "../services/apiSeries";
 import Loader from "./Loader";
 import MovieCardContainer from "./MovieCardContainer";
-import MovieHeader from "./MovieHeader";
+import DataHeader from "./DataHeader";
 import MovieCard from "./MovieCard";
 import Sliders from "./Sliders";
+import { sliceArray } from "../utils/helper";
 
-function HomeSeries() {
-  const queryClient = useQueryClient();
-
-  const { data: trendingWeekT, isLoading: isLoading1 } = useQuery({
-    queryKey: ["trendingOfWeekSeries"],
-    queryFn: getTrendingOfWeekS,
-  });
-
-  const { data: popularT, isLoading: isLoading2 } = useQuery({
-    queryKey: ["popularSeries"],
-    queryFn: getPopularSeries,
-  });
-
-  const { data: topRatedT, isLoading: isLoading3 } = useQuery({
-    queryKey: ["topRatedSeries"],
-    queryFn: getTopRatedSeries,
-  });
-  const { data: airingTodayT, isLoading: isLoading4 } = useQuery({
-    queryKey: ["airingTodaySeries"],
-    queryFn: getTodayAiringSeries,
-  });
-
-  const { data: upComingT, isLoading: isLoading5 } = useQuery({
-    queryKey: ["upComingAiringSeries"],
-    queryFn: getUpcomingAiringSeries,
-  });
-
+function HomeSeries({ results, status }) {
   return (
     <>
-      <MovieHeader title="Trending" type="Tv series" />
+      {/* Trending Series */}
+      <DataHeader title={results?.[0].label} type={results?.[0].type} />
       <Sliders
-        sliderData={trendingWeekT?.results}
-        isLoading={isLoading1}
-        type="series"
+        sliderData={results?.[0]}
+        isLoading={status}
+        type={results?.[0].type}
       />
 
-      {/* Popular Movies */}
-      <MovieHeader title="Popular" type="Tv series" />
+      {/* Popular Series */}
+
+      <DataHeader title={results?.[1].label} type={results?.[1].type} />
       <MovieCardContainer>
-        {isLoading2 && <Loader />}
-        {popularT?.results?.slice(0, 6)?.map((series) => (
-          <MovieCard cardData={series} key={series?.id} type="series" />
+        {status === "pending" && <Loader />}
+        {sliceArray(results?.[1]?.data?.results, 6)?.map((movie) => (
+          <MovieCard
+            cardData={movie}
+            key={movie?.id}
+            type={results?.[1].type}
+          />
         ))}
       </MovieCardContainer>
 
       {/* Top Rated */}
-      <MovieHeader title="Top Rated" type="Tv series" />
+
+      <DataHeader title={results?.[2].label} type={results?.[2].type} />
       <MovieCardContainer>
-        {isLoading3 && <Loader />}
-        {topRatedT?.results?.slice(0, 6)?.map((series) => (
-          <MovieCard cardData={series} key={series?.id} type="series" />
+        {status === "pending" && <Loader />}
+        {sliceArray(results?.[2]?.data?.results, 6)?.map((movie) => (
+          <MovieCard
+            cardData={movie}
+            key={movie?.id}
+            type={results?.[2].type}
+          />
         ))}
       </MovieCardContainer>
 
       {/* Airing Today */}
-      <MovieHeader title="Airing Today" type="Tv series" />
+
+      <DataHeader title={results?.[3].label} type={results?.[3].type} />
       <MovieCardContainer>
-        {isLoading4 && <Loader />}
-        {airingTodayT?.results?.slice(0, 6)?.map((series) => (
-          <MovieCard cardData={series} key={series?.id} type="series" />
+        {status === "pending" && <Loader />}
+        {sliceArray(results?.[3]?.data?.results, 6)?.map((movie) => (
+          <MovieCard
+            cardData={movie}
+            key={movie?.id}
+            type={results?.[3].type}
+          />
         ))}
       </MovieCardContainer>
 
       {/* Up Coming */}
-      <MovieHeader title="On Air" type="Tv series" />
+
+      <DataHeader title={results?.[4].label} type={results?.[4].type} />
       <MovieCardContainer>
-        {isLoading5 && <Loader />}
-        {upComingT?.results?.slice(0, 6)?.map((series) => (
-          <MovieCard cardData={series} key={series?.id} type="series" />
+        {status === "pending" && <Loader />}
+        {sliceArray(results?.[4]?.data?.results, 6)?.map((movie) => (
+          <MovieCard
+            cardData={movie}
+            key={movie?.id}
+            type={results?.[4].type}
+          />
         ))}
       </MovieCardContainer>
     </>

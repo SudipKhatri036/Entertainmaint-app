@@ -253,8 +253,9 @@ const country = {
   MZ: "Mozambique",
 };
 
-function ExtraDetail({ data, typeOf }) {
-  const isTv = typeOf === "tv";
+function ExtraDetail({ data }) {
+  const isTv = data?.typeOf === "tv";
+
   return (
     <div className="grid grid-cols-2 xs:flex justify-between items-center">
       {!isTv && (
@@ -268,7 +269,7 @@ function ExtraDetail({ data, typeOf }) {
       <div>
         <p className="text-prime-300 text-lg md:text-2xl mb-4">Language</p>
         <p className="text-sm md:text-md tracking-wide uppercase">
-          {country[data?.origin_country[0].toUpperCase()] ||
+          {country[data?.origin_country?.[0].toUpperCase()] ||
             data?.original_language}
         </p>
       </div>

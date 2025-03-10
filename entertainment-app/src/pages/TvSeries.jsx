@@ -1,40 +1,19 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import Genre from "../components/Genre";
 import { useLocation } from "react-router-dom";
-import { getSeriesGenre } from "../services/apiSeries";
-
-const genres = [
-  "Action & Adventure",
-  "Animation",
-  "Comedy",
-  "Crime",
-  "Documentary",
-  "Drama",
-  "Family",
-  "Kids",
-  "Mystery",
-  "News",
-  "Reality",
-  "Sc-Fi & Fantasy",
-  "Soap",
-  "Talk",
-  "War & Politics",
-  "Western",
-];
+import { getGenre } from "../services/apiPublic";
 
 function TvSeries() {
-  const queryClient = useQueryClient();
-
-  const { data, isLoading } = useQuery({
-    queryKey: ["seriesGenre"],
-    queryFn: getSeriesGenre,
+  const { data, status } = useQuery({
+    queryKey: ["movieGenre"],
+    queryFn: () => getGenre("movie"),
   });
 
   let { pathname } = useLocation();
 
   return (
     <div className="series-genre-parent mt-8">
-      <Genre genres={data?.genres} pathname={pathname} isLoading={isLoading} />
+      <Genre genres={data?.data?.genres} pathname={pathname} status={status} />
     </div>
   );
 }

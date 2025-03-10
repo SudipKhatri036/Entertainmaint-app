@@ -1,21 +1,3 @@
-export async function getMovieGenre() {
-  try {
-    const req = await fetch(
-      `${import.meta.env.VITE_BASE_URL}/genre/movie/list?language=en&api_key=${
-        import.meta.env.VITE_API_KEY
-      }`
-    );
-
-    if (!req.ok) throw new Error("Error getting genre list");
-    const data = await req.json();
-
-    return data;
-  } catch (error) {
-    console.log(error);
-    return error;
-  }
-}
-
 export async function getTrendingOfWeek() {
   try {
     const req = await fetch(

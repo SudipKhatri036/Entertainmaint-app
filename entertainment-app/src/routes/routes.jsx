@@ -23,7 +23,7 @@ const router = createBrowserRouter([
         element: <Movies />,
       },
       {
-        path: "/:isSeries/genre",
+        path: "/:typeOfData/genre",
         element: <ListPage />,
       },
       {

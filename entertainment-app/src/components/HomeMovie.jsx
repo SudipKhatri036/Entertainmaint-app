@@ -7,78 +7,79 @@ import {
   getTrendingOfWeek,
   getUpComingMovies,
 } from "../services/apiMovies";
-import MovieHeader from "./MovieHeader";
+import DataHeader from "./DataHeader";
 import Sliders from "./Sliders";
 import MovieCardContainer from "./MovieCardContainer";
 import MovieCard from "./MovieCard";
 import Loader from "./Loader";
+import { sliceArray } from "../utils/helper";
 
-function HomeMovie() {
-  const queryClient = useQueryClient();
-
-  const { data: trendingWeekM, isLoading: isLoading1 } = useQuery({
-    queryKey: ["trendingOfWeekMovies"],
-    queryFn: getTrendingOfWeek,
-  });
-
-  const { data: popularM, isLoading: isLoading2 } = useQuery({
-    queryKey: ["popularMovies"],
-    queryFn: getPopularMovies,
-  });
-
-  const { data: topRatedM, isLoading: isLoading3 } = useQuery({
-    queryKey: ["topRatedMovies"],
-    queryFn: getTopRatedMovies,
-  });
-  const { data: nowPlayingM, isLoading: isLoading4 } = useQuery({
-    queryKey: ["nowPlayingMovies"],
-    queryFn: getNowPlayingMovies,
-  });
-
-  const { data: upComingM, isLoading: isLoading5 } = useQuery({
-    queryKey: ["upComingMovies"],
-    queryFn: getUpComingMovies,
-  });
-
+function HomeMovie({ results, status }) {
   return (
     <>
-      <MovieHeader title="Trending" type="movie" />
+      <DataHeader title={results?.[0].label} type={results?.[0].type} />
       <Sliders
-        sliderData={trendingWeekM?.results}
-        isLoading={isLoading1}
-        type="movies"
+        sliderData={results?.[0]}
+        isLoading={status}
+        type={results?.[0].type}
       />
+
       {/* Popular Movies */}
-      <MovieHeader title="Popular" type="movie" />
+      <DataHeader title={results?.[1].label} type={results?.[1].type} />
       <MovieCardContainer>
-        {isLoading2 && <Loader />}
-        {popularM?.results?.slice(0, 6)?.map((movie) => (
-          <MovieCard cardData={movie} key={movie?.id} type="movies" />
+        {status === "pending" && <Loader />}
+        {sliceArray(results?.[1]?.data?.results, 6)?.map((movie) => (
+          <MovieCard
+            cardData={movie}
+            key={movie?.id}
+            type={results?.[1].type}
+          />
         ))}
       </MovieCardContainer>
+
       {/* Top Rated */}
-      <MovieHeader title="Top Rated" type="movie" />
+      <DataHeader title={results?.[2].label} type={results?.[2].type} />
       <MovieCardContainer>
-        {isLoading3 && <Loader />}
-        {topRatedM?.results?.slice(0, 6)?.map((movie) => (
-          <MovieCard cardData={movie} key={movie?.id} type="movies" />
-        ))}
+        {status === "pending" && <Loader />}
+        {sliceArray(results?.[2]?.data?.results, 6)
+          ?.slice(0, 6)
+          ?.map((movie) => (
+            <MovieCard
+              cardData={movie}
+              key={movie?.id}
+              type={results?.[1].type}
+            />
+          ))}
       </MovieCardContainer>
+
       {/* Now Playing */}
-      <MovieHeader title="Now Playing" type="movie" />
+      <DataHeader title={results?.[3].label} type={results?.[3].type} />
       <MovieCardContainer>
-        {isLoading4 && <Loader />}
-        {nowPlayingM?.results?.slice(0, 6)?.map((movie) => (
-          <MovieCard cardData={movie} key={movie?.id} type="movies" />
-        ))}
+        {status === "pending" && <Loader />}
+        {sliceArray(results?.[3]?.data?.results, 6)
+          ?.slice(0, 6)
+          ?.map((movie) => (
+            <MovieCard
+              cardData={movie}
+              key={movie?.id}
+              type={results?.[1].type}
+            />
+          ))}
       </MovieCardContainer>
+
       {/* Up Coming */}
-      <MovieHeader title="Up coming" type="movie" />
+      <DataHeader title={results?.[4].label} type={results?.[4].type} />
       <MovieCardContainer>
-        {isLoading5 && <Loader />}
-        {upComingM?.results?.slice(0, 6)?.map((movie) => (
-          <MovieCard cardData={movie} key={movie?.id} type="movies" />
-        ))}
+        {status === "pending" && <Loader />}
+        {sliceArray(results?.[4]?.data?.results, 6)
+          ?.slice(0, 6)
+          ?.map((movie) => (
+            <MovieCard
+              cardData={movie}
+              key={movie?.id}
+              type={results?.[1].type}
+            />
+          ))}
       </MovieCardContainer>
     </>
   );
