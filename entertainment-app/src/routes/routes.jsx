@@ -8,6 +8,7 @@ import ListPage from "../pages/ListPage";
 import ResultPage from "../pages/ResultPage";
 import PageNotFound from "../components/PageNotFound";
 import Login from "../components/auth/Login";
+import Register from "../components/auth/Register";
 
 const router = createBrowserRouter([
   {
@@ -44,11 +45,15 @@ const router = createBrowserRouter([
         element: <ResultPage />,
       },
       { path: "*", element: <PageNotFound /> },
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/register",
+        element: <Register />,
+      },
     ],
-  },
-  {
-    path: "/login",
-    element: <Login />,
   },
 ]);
 

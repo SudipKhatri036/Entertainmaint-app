@@ -1,19 +1,19 @@
-import { useState } from "react";
-import { MdEmail } from "react-icons/md";
-import { FaLock } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
-import { toast } from "react-toastify";
+import { useState } from "react";
+import { FaLock, FaUser } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
+import { Link, useNavigate } from "react-router-dom";
+import { Bounce, toast, ToastContainer } from "react-toastify";
 import axios from "axios";
 
-function Login() {
+function Register() {
+  const navigate = useNavigate();
   const [inputValue, setInputValue] = useState({
     email: "",
     password: "",
+    username: "",
   });
-  const navigate = useNavigate();
-
-  const { email, password } = inputValue;
+  const { email, password, username } = inputValue;
   const handleOnChange = (e) => {
     const { name, value } = e.target;
     setInputValue({
@@ -24,14 +24,17 @@ function Login() {
 
   const mutation = useMutation({
     mutationFn: (formData) => {
-      return axios.post(`${import.meta.env.LOCAL_URL}/auth/login`, formData);
+      return axios.post(`${import.meta.env.LOCAL_URL}/auth/register`, formData);
     },
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
     mutation.mutate(inputValue, {
-      onSuccess: (data) => {
+      onSuccess: (data, variables) => {
+        console.log(data);
+        console.log(variables);
+
         if (data?.data?.success) {
           toast.success(data?.data?.message, {
             position: "bottom-right",
@@ -40,6 +43,7 @@ function Login() {
             ...inputValue,
             email: "",
             password: "",
+            username: "",
           });
           navigate("/");
         } else {
@@ -62,8 +66,22 @@ function Login() {
         onSubmit={handleSubmit}
         className="bg-prime-700 px-4 sm:px-6 py-8 md:p-8 min-w-[70%] xs:min-w-96 2xl:min-w-[35rem] 2xl:px-12 rounded-lg"
       >
-        <h2 className="text-3xl tracking-wider text-center">Login</h2>
+        <h2 className="text-3xl tracking-wider text-center">Register</h2>
         <div className="w-18 h-[3px] mx-auto bg-prime-200 "></div>
+        <div className="mb-3 relative">
+          <input
+            type="text"
+            placeholder="Enter your username"
+            name="username"
+            id="username"
+            className="w-full block border-b-2 border-b-prime-200 p-2 pl-8 mt-4 mb-1 focus:outline-0 focus-visible:border-b-indigo-200 active:border-b-indigo-200 autofill:bg-transparent 2xl:text-xl"
+            value={username}
+            onChange={handleOnChange}
+          />
+          <span className="absolute top-4 left-3 text-sm lg:text-md">
+            <FaUser />
+          </span>
+        </div>
         <div className="mb-3 relative">
           <input
             type="email"
@@ -96,18 +114,12 @@ function Login() {
           <button className="w-full bg-prime-200 px-3 py-2 text-md  rounded-lg font-normal cursor-pointer tracking-wide hover:brightness-125 transition-all duration-300 mt-2">
             Login
           </button>
-          <Link
-            to="auth/forget-password"
-            className="block text-xs tracking-wide text-center mt-2 hover:underline"
-          >
-            Forget Password?
-          </Link>
 
           <Link
-            to={"/register"}
+            to={"/login"}
             className="block mt-6 text-center hover:scale-105 transition-all duration-300"
           >
-            Create new account &#8594;
+            Already have an account &#8594;
           </Link>
         </div>
       </form>
@@ -115,4 +127,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;
