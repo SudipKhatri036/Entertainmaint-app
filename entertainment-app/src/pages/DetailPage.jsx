@@ -7,10 +7,11 @@ import { Rating } from "primereact/rating";
 import { useEffect, useState } from "react";
 import ExtraDetail from "../components/ExtraDetail";
 import Loader from "../components/Loader";
-import { convertToStars } from "../utils/helper";
+import { convertToStars, sliceArray } from "../utils/helper";
 
 function DetailPage() {
   const [windowWidth, setWindowWidth] = useState(0);
+  const [showMore, setShowMore] = useState(false);
   const navigate = useNavigate();
   const { type, id } = useParams();
 
@@ -35,6 +36,10 @@ function DetailPage() {
 
   let imageSrc;
   const starRating = convertToStars(data?.data?.vote_average);
+  const casts =
+    data?.casts?.length > 25 && !showMore
+      ? sliceArray(data?.casts, 25)
+      : data?.casts;
 
   if (windowWidth < 768) {
     imageSrc = data?.data?.backdrop_path;
@@ -123,16 +128,26 @@ function DetailPage() {
         {/* Sypnosis */}
 
         {/* Casts */}
-        <h3 className="mb-2 font-medium tracking-wide text-2xl mt-7">Casts</h3>
-        <div className="flex flex-wrap gap-2">
-          {data?.casts?.map((cas) => (
-            <p
-              className="px-2 py-[2px] border-2 border-prime-100 font-normal text-[.7rem] md:text-[.8rem] uppercase tracking-wide rounded-md text-center"
-              key={cas?.id}
-            >
-              {cas?.name}
-            </p>
-          ))}
+        <div>
+          <h3 className="mb-2 font-medium tracking-wide text-2xl mt-7">
+            Casts
+          </h3>
+          <div className="flex flex-wrap gap-2">
+            {casts?.map((cas) => (
+              <p
+                className="px-2 py-[2px] border-2 border-prime-100 font-normal text-[.7rem] md:text-[.8rem] uppercase tracking-wide rounded-md text-center"
+                key={cas?.id}
+              >
+                {cas?.name}
+              </p>
+            ))}
+          </div>
+          <button
+            className="bg-prime-200 px-3 py-2 text-md  rounded-lg font-normal cursor-pointer tracking-wide hover:brightness-125 transition-all duration-300 mt-3"
+            onClick={() => setShowMore((m) => !m)}
+          >
+            {showMore ? "Show less" : "Show more"}
+          </button>
         </div>
         {/* Casts */}
 

@@ -4,7 +4,7 @@ const {
   getHomeData,
   getMovieGenre,
   getTvGenre,
-} = require("../controller/Home.controller");
+} = require("../controller/homeController");
 
 const mainRouter = express.Router();
 

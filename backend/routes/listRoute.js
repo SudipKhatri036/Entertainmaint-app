@@ -3,7 +3,7 @@ const {
   getLists,
   getListsFromGenre,
   getDataDetail,
-} = require("../controller/list.controller");
+} = require("../controller/listController");
 
 const listRouter = express.Router();
 
