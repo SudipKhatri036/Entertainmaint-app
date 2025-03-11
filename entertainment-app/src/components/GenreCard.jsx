@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-function GenreCard({ gen, pathname = "/movies" }) {
+function GenreCard({ gen, pathname = "/movie" }) {
   return (
     <Link
       to={`${pathname}/genre?name=${encodeURIComponent(gen.name)}&id=${gen.id}`}

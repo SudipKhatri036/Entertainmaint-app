@@ -1,6 +1,6 @@
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
-require("dotenv").config();
 const app = express();
 const {
   getHomeData,
@@ -12,6 +12,9 @@ const {
   getListsFromGenre,
   getDataDetail,
 } = require("./controller/list.controller");
+const { mainRouter } = require("./routes/route");
+const { listRouter } = require("./routes/listRoute");
+const { queryRouter } = require("./routes/queryRoutes");
 
 const port = process.env.PORT || 3000;
 const corsOpt = {
@@ -21,14 +24,12 @@ const corsOpt = {
   optionsSuccessStatus: 204,
 };
 
+app.use(express.json());
 app.use(cors(corsOpt));
 
-app.get("/", getHomeData);
-app.get("/movie/genre", getMovieGenre);
-app.get("/tv/genre", getTvGenre);
-app.get("/:typeOfData", getLists);
-app.get("/discover/:typeOfData", getListsFromGenre);
-app.get("/:typeOfData/detail/:id", getDataDetail);
+app.use("/", mainRouter);
+app.use("/", listRouter);
+app.use("/", queryRouter);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

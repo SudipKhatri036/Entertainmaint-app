@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { getFirstDate, shortifyName } from "../utils/helper";
 
 function MovieCard({ cardData, type }) {
-  console.log(type);
   return (
     <Link
       className="movie-grid-child  mb-4 cursor-pointer hover:animate-wiggle"

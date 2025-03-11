@@ -6,7 +6,7 @@ import { getGenre } from "../services/apiPublic";
 function TvSeries() {
   const { data, status } = useQuery({
     queryKey: ["movieGenre"],
-    queryFn: () => getGenre("movie"),
+    queryFn: () => getGenre("tv"),
   });
 
   let { pathname } = useLocation();

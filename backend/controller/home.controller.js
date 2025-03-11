@@ -92,7 +92,7 @@ const getMovieGenre = async (req, res) => {
 const getTvGenre = async (req, res) => {
   try {
     const results = await fetchWithErrorHandlingForHome({
-      url: `${baseUrl}/genre/movie/list?language=en&api_key=${apiKey}`,
+      url: `${baseUrl}/genre/tv/list?language=en&api_key=${apiKey}`,
       label: "Tv Genre",
       type: "tv",
     });

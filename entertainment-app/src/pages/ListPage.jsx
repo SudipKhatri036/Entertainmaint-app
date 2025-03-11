@@ -19,7 +19,7 @@ function ListPage() {
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } =
     useInfiniteQuery({
-      queryKey: ["project", genreId, typeOfData, name],
+      queryKey: ["lists", genreId, typeOfData, name],
       queryFn: ({ pageParam = 1 }) => {
         return genreId
           ? getListsFromGenre({ typeOfData, genreId, name, pageParam })
@@ -32,8 +32,6 @@ function ListPage() {
           : undefined;
       },
     });
-
-  console.log(data);
 
   function handleScroll() {
     const bottom =
@@ -55,7 +53,7 @@ function ListPage() {
       <div className="flex items-end gap-2 md:gap-4">
         <h1 className="text-xl lg:text-3xl">{name}</h1>
         <p className="px-2 border-2 border-prime-100 font-semibold text-[.7rem] md:text-[.8rem] uppercase tracking-wide rounded-md">
-          {typeOfData}
+          {typeOfData === "tv" ? "Tv series" : typeOfData}
         </p>
       </div>
       <div>
@@ -67,11 +65,14 @@ function ListPage() {
               className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 gap-4 mt-6 [&>*:nth-child(odd)]:hover:animate-wiggle [&>*:nth-child(even)]:hover:animate-wiggleOp"
               key={index}
             >
+              {page?.data?.results?.length < 1 && (
+                <ErrorData err="No data found 🥲" />
+              )}
               {page?.data?.results?.map((result) => {
                 return (
                   <MovieCard
                     cardData={result}
-                    type={typeOfData === "movies" ? "movies" : "series"}
+                    type={typeOfData}
                     key={result?.id}
                   />
                 );

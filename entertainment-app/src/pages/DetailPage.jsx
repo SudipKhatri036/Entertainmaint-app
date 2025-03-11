@@ -3,7 +3,6 @@ import { FaArrowLeft, FaImdb } from "react-icons/fa";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getDetail } from "../services/apiPublic";
-// import { getFirstDate } from "../utils/helper";
 import { Rating } from "primereact/rating";
 import { useEffect, useState } from "react";
 import ExtraDetail from "../components/ExtraDetail";
@@ -46,6 +45,7 @@ function DetailPage() {
   {
     status === "pending" && <Loader />;
   }
+
   return (
     <div className="flex flex-col md:flex-row mt-8 gap-8 lg:px-16 relative">
       <div className="absolute top-[-45px]  left-0 border-2 border-prime-300 py-2 px-2 rounded-3xl flex">
@@ -57,7 +57,11 @@ function DetailPage() {
         <img
           src={
             data?.data?.backdrop_path || data?.data?.poster_path
-              ? `https://image.tmdb.org/t/p/w500/${imageSrc}`
+              ? `https://image.tmdb.org/t/p/w500/${
+                  imageSrc ||
+                  data?.data?.backdrop_path ||
+                  data?.data?.poster_path
+                }`
               : "https://cdn.pixabay.com/photo/2015/06/24/02/12/the-blurred-819388_960_720.jpg"
           }
           alt={`${data?.data?.title || data?.data?.name} type poster`}
@@ -75,9 +79,18 @@ function DetailPage() {
         {/* Star Detail */}
         <div className="flex items-center mb-7 gap-6 justify-center md:justify-start">
           <h2 className="text-3xl font-bold tracking-widest">
-            {starRating.toString().length > 1 ? starRating : `${starRating}.0`}
+            {isNaN(starRating)
+              ? 0.0
+              : starRating.toString().length > 1
+              ? starRating
+              : Number(`${starRating}.0`)}
           </h2>
-          <Rating value={starRating} disabled readOnly cancel={false} />
+          <Rating
+            value={isNaN(starRating) ? 0.0 : starRating}
+            disabled
+            readOnly
+            cancel={false}
+          />
         </div>
         {/* Star Detail */}
 

@@ -32,7 +32,7 @@ function SideBar() {
           </NavLink>
         </li>
         <li>
-          <NavLink to="/movies">
+          <NavLink to="/movie">
             <svg
               className="h-[20px] w-[25px] lg:h-[25.6px] lg:w-[32px] hover:fill-danger-100 transition-all duration-300"
               fill="currentColor"
@@ -46,7 +46,7 @@ function SideBar() {
           </NavLink>
         </li>
         <li>
-          <NavLink to="/series">
+          <NavLink to="/tv">
             <svg
               className="h-[20px] w-[25px] lg:h-[25.6px] lg:w-[32px] hover:fill-danger-100 transition-all duration-300"
               fill="currentColor"

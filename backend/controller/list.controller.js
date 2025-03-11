@@ -9,8 +9,8 @@ const getListsFromGenre = async (req, res) => {
   try {
     const results = await fetchWithErrorHandlingForHome({
       url: `${baseUrl}/discover/${typeOfData}?&api_key=${apiKey}&with_genres=${genreId}&page=${pageParam}`,
-      label: `${name} ${typeOfData}"`,
-      type: "movie",
+      label: `${name} ${typeOfData}`,
+      type: typeOfData,
     });
 
     res.status(200).json({
