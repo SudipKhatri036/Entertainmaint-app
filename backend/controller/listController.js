@@ -28,11 +28,11 @@ const getLists = async (req, res) => {
   const typeOfData = req.params?.typeOfData || "movie";
   try {
     let spaceRemoved =
-      name.split(" ").length > 1
-        ? name.split(" ").join("_").toLowerCase()
-        : name.toLowerCase();
+      name?.split(" ").length > 1
+        ? name?.split(" ").join("_").toLowerCase()
+        : name?.toLowerCase();
 
-    if (name.toLowerCase() === "trending") {
+    if (name?.toLowerCase() === "trending") {
       results = await fetchWithErrorHandlingForHome({
         url: `${baseUrl}/trending/${typeOfData}/week?language=en&api_key=${apiKey}&page=${pageParam}`,
         label: `${name} ${typeOfData}`,
@@ -70,7 +70,6 @@ const getLists = async (req, res) => {
 
 const getDataDetail = async (req, res) => {
   const { typeOfData, id } = req.params || {};
-  console.log(typeOfData, id);
 
   try {
     const dataResults = await fetchWithErrorHandlingForHome({

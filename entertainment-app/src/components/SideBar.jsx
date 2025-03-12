@@ -1,7 +1,22 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+
+import { toast } from "react-toastify";
+import useAuth from "../hooks/useAuth";
 
 function SideBar() {
+  const navigate = useNavigate();
+  const { isLoggedIn } = useAuth();
+
+  const handleBookmark = () => {
+    if (!isLoggedIn) {
+      toast.error("Please login first");
+      navigate("/login");
+    } else {
+      navigate("/bookmarks");
+    }
+  };
+
   return (
     <aside className="lg:fixed flex w-full lg:w-auto lg:flex-col items-center justify-between z-20 bg-prime-700 lg:h-[80vh]  px-6 py-8 rounded-lg">
       <Link to="/">
@@ -59,13 +74,42 @@ function SideBar() {
             </svg>
           </NavLink>
         </li>
+        <li>
+          <button
+            onClick={handleBookmark}
+            className="cursor-pointer"
+            disabled={!isLoggedIn}
+          >
+            <svg
+              className={`h-[20px] w-[30px] lg:h-[30.6px] lg:w-[45px] hover:fill-danger-100 transition-all duration-300 ${
+                isLoggedIn ? "" : "fill-prime-300 hover:fill-prime-300"
+              }`}
+              fill="currentColor"
+              xmlns="http://www.w3.org/2000/svg"
+              x="0px"
+              y="0px"
+              width="1.5em"
+              height="100"
+              viewBox="0 0 30 30"
+            >
+              <path d="M23,27l-8-7l-8,7V5c0-1.105,0.895-2,2-2h12c1.105,0,2,0.895,2,2V27z"></path>
+            </svg>
+          </button>
+        </li>
       </ul>
-      <Link to="/login" className="block w-12">
-        <img
-          src="/avatar.png"
-          alt="Avatar image"
-          className="max-w-full border-2 rounded-3xl hover:border-danger-100 transition-all duration-300"
-        />
+      <Link
+        to={`${isLoggedIn ? "/profile" : "/login"}`}
+        className={`block w-12 ${isLoggedIn ? "" : "hover:underline"}`}
+      >
+        {isLoggedIn ? (
+          <img
+            src="/avatar.png"
+            alt="Avatar image"
+            className="max-w-full border-2 rounded-3xl hover:border-danger-100 transition-all duration-300"
+          />
+        ) : (
+          "Login"
+        )}
       </Link>
     </aside>
   );

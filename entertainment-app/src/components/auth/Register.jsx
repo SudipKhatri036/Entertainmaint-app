@@ -5,9 +5,11 @@ import { MdEmail } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import { Bounce, toast, ToastContainer } from "react-toastify";
 import axios from "axios";
+import useAuth from "../../hooks/useAuth";
 
 function Register() {
   const navigate = useNavigate();
+  const { setIsLoggedIn } = useAuth();
   const [inputValue, setInputValue] = useState({
     email: "",
     password: "",
@@ -24,17 +26,20 @@ function Register() {
 
   const mutation = useMutation({
     mutationFn: (formData) => {
-      return axios.post(`${import.meta.env.LOCAL_URL}/auth/register`, formData);
+      return axios.post(
+        `${import.meta.env.VITE_LOCAL_URL}/auth/register`,
+        formData,
+        {
+          withCredentials: true, // Ensure cookies are sent with the request
+        }
+      );
     },
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
     mutation.mutate(inputValue, {
-      onSuccess: (data, variables) => {
-        console.log(data);
-        console.log(variables);
-
+      onSuccess: (data) => {
         if (data?.data?.success) {
           toast.success(data?.data?.message, {
             position: "bottom-right",
@@ -45,6 +50,7 @@ function Register() {
             password: "",
             username: "",
           });
+          setIsLoggedIn(true);
           navigate("/");
         } else {
           toast.error(data?.data?.message, {

@@ -14,7 +14,16 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: [true, "Your password is required"],
   },
-  bookmarks: [String],
+  bookmarks: [
+    {
+      id: { type: Number, required: true },
+      backdropPath: { type: String },
+      posterPath: { type: String },
+      releaseDate: { type: String, default: "" },
+      title: { type: String, required: true },
+      addedAt: { type: Date, default: Date.now() },
+    },
+  ],
   createdAt: {
     type: Date,
     default: new Date(),

@@ -90,3 +90,18 @@ export async function getListFromQuery(query) {
     return error;
   }
 }
+
+export async function getBookmarkList() {
+  try {
+    const req = await fetch(
+      `${import.meta.env.VITE_LOCAL_URL}/bookmark/getBookmark`,
+      { credentials: "include" }
+    );
+    if (!req.ok) throw new Error(`No result Found!`);
+    const data = await req.json();
+
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}

@@ -9,6 +9,9 @@ import ResultPage from "../pages/ResultPage";
 import PageNotFound from "../components/PageNotFound";
 import Login from "../components/auth/Login";
 import Register from "../components/auth/Register";
+import BookmarksPage from "../pages/BookmarksPage";
+import ProfilePage from "../pages/ProfilePage";
+import ProtectedRoute from "../ui/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -52,6 +55,15 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <Register />,
+      },
+      // Protected Route
+      {
+        path: "/bookmarks",
+        element: <ProtectedRoute element={<BookmarksPage />} />,
+      },
+      {
+        path: "/profile",
+        element: <ProtectedRoute element={<ProfilePage />} />,
       },
     ],
   },

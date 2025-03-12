@@ -5,12 +5,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import axios from "axios";
+import useAuth from "../../hooks/useAuth";
 
 function Login() {
   const [inputValue, setInputValue] = useState({
     email: "",
     password: "",
   });
+  const { setIsLoggedIn } = useAuth();
   const navigate = useNavigate();
 
   const { email, password } = inputValue;
@@ -24,7 +26,13 @@ function Login() {
 
   const mutation = useMutation({
     mutationFn: (formData) => {
-      return axios.post(`${import.meta.env.LOCAL_URL}/auth/login`, formData);
+      return axios.post(
+        `${import.meta.env.VITE_LOCAL_URL}/auth/login`,
+        formData,
+        {
+          withCredentials: true, // Ensure cookies are sent with the request
+        }
+      );
     },
   });
 
@@ -41,6 +49,7 @@ function Login() {
             email: "",
             password: "",
           });
+          setIsLoggedIn(true);
           navigate("/");
         } else {
           toast.error(data?.data?.message, {
@@ -49,9 +58,7 @@ function Login() {
         }
       },
       onError: (error) => {
-        toast.error(error.message, {
-          position: "bottom-left",
-        });
+        console.log(error.message);
       },
     });
   };

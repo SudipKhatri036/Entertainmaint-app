@@ -9,10 +9,10 @@ const { userVerification } = require("../middleware/authMiddleware");
 
 const authRouter = express.Router();
 
-authRouter.post("/register", registerUser);
-authRouter.post("/login", loginUser);
-authRouter.post("/logout", logoutUser);
-authRouter.post("/resetPassword", forgotPassword);
-authRouter.get("/user", userVerification);
+authRouter.post("/auth/register", registerUser);
+authRouter.post("/auth/login", loginUser);
+authRouter.post("/auth/logout", logoutUser);
+authRouter.post("/auth/resetPassword", forgotPassword);
+authRouter.get("/auth/user", userVerification);
 
 exports.authRouter = authRouter;
