@@ -30,11 +30,11 @@ function MovieCard({ cardData, type }) {
       backdropPath: cardData?.backdrop_path || "",
       poserPath: cardData?.poster_path || "",
       releaseDate: cardData?.release_date || cardData?.first_air_date,
+      dataType: type,
     };
 
     mutate(bookmarkData, {
       onSuccess: (data) => {
-        console.log(data);
         toast.success(data?.data?.message, {
           position: "bottom-right",
         });
@@ -57,7 +57,7 @@ function MovieCard({ cardData, type }) {
           <FaBookmark />
         </button>
       )}
-      <Link>
+      <Link to={`/${type}/${cardData?.id}`}>
         <div className="h-[133px] md:h-[140px] lg:h-[174px]">
           <img
             src={
@@ -85,7 +85,7 @@ function MovieCard({ cardData, type }) {
           </p>
           <span className="w-1 h-1 rounded-full bg-white"></span>
           <div className="flex items-center gap-1 font-light">
-            {type === "movies" ? (
+            {type === "movie" ? (
               <>
                 <MdMovieCreation />
                 <p>Movie</p>

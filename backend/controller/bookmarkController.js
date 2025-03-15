@@ -1,30 +1,6 @@
 const { User } = require("../models/userModel");
 const jwt = require("jsonwebtoken");
 
-// const addToBookmark = async (req, res) => {
-//   const token = req.cookies.token;
-//   if (!token) {
-//     return res.json({ status: false });
-//   }
-//   jwt.verify(token, process.env.TOKEN_KEY, async (err, data) => {
-//     if (err) {
-//       return res.json({ status: false });
-//     } else {
-//       const user = await User.findById(data.id);
-//       if (user) {
-//         user.bookmarks.push(req.body);
-//         await user.save();
-//         return res.json({
-//           status: true,
-//           message: "Bookmark added successfully",
-//           userData: user,
-//           bookId: req.body.id,
-//         });
-//       } else return res.json({ status: false });
-//     }
-//   });
-// };
-
 const addToBookmark = async (req, res) => {
   const token = req.cookies.token;
   if (!token) {
@@ -64,27 +40,6 @@ const addToBookmark = async (req, res) => {
     }
   });
 };
-
-// const getBookmark = async (req, res) => {
-//   const token = req.cookies.token;
-//   if (!token) {
-//     return res.json({ status: false });
-//   }
-
-//   jwt.verify(token, process.env.TOKEN_KEY, async (err, data) => {
-//     if (err) {
-//       return res.json({ status: false });
-//     } else {
-//       const user = await User.findById(data.id);
-//       if (user) {
-//         return res.json({
-//           status: true,
-//           bookmarks: user,
-//         });
-//       } else return res.json({ status: false });
-//     }
-//   });
-// };
 
 const getBookmark = async (req, res) => {
   const token = req.cookies.token;

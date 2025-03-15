@@ -67,7 +67,6 @@ const getHomeData = async (req, res) => {
     // Send the results back as the response
     res.status(200).json(results);
   } catch (error) {
-    console.error("Error in fetch operations: ", error);
     res.status(500).send("Error running fetch operations");
   }
 };
@@ -83,7 +82,6 @@ const getMovieGenre = async (req, res) => {
 
     res.status(200).json(results);
   } catch (error) {
-    console.error("Error in fetch operations: ", error);
     res.status(500).send("Error running fetch operations");
   }
 };
@@ -99,7 +97,6 @@ const getTvGenre = async (req, res) => {
 
     res.status(200).json(results);
   } catch (error) {
-    console.error("Error in fetch operations: ", error);
     res.status(500).send("Error running fetch operations");
   }
 };

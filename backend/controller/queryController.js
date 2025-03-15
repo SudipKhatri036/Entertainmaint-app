@@ -15,7 +15,6 @@ const getDataByQuery = async (req, res) => {
 
     res.status(200).json(results);
   } catch (error) {
-    console.error("Error in fetch operations: ", error);
     res.status(500).send("Error running fetch operations");
   }
 };

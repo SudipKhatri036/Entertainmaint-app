@@ -253,8 +253,8 @@ const country = {
   MZ: "Mozambique",
 };
 
-function ExtraDetail({ data }) {
-  const isTv = data?.typeOf === "tv";
+function ExtraDetail({ data, typeOf }) {
+  const isTv = typeOf === "tv";
 
   return (
     <div className="grid grid-cols-2 xs:flex justify-between items-center">

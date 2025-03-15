@@ -1,12 +1,3 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import React from "react";
-import {
-  getNowPlayingMovies,
-  getPopularMovies,
-  getTopRatedMovies,
-  getTrendingOfWeek,
-  getUpComingMovies,
-} from "../services/apiMovies";
 import DataHeader from "./DataHeader";
 import Sliders from "./Sliders";
 import MovieCardContainer from "./MovieCardContainer";

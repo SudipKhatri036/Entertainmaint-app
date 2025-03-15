@@ -22,6 +22,7 @@ const UserSchema = new mongoose.Schema({
       releaseDate: { type: String, default: "" },
       title: { type: String, required: true },
       addedAt: { type: Date, default: Date.now() },
+      dataType: { type: String },
     },
   ],
   createdAt: {

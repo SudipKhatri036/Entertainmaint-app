@@ -86,9 +86,9 @@ function DetailPage() {
           <h2 className="text-3xl font-bold tracking-widest">
             {isNaN(starRating)
               ? 0.0
-              : starRating.toString().length > 1
+              : starRating.toString().length > 2
               ? starRating
-              : Number(`${starRating}.0`)}
+              : `${starRating}.0`}
           </h2>
           <Rating
             value={isNaN(starRating) ? 0.0 : starRating}
@@ -100,7 +100,7 @@ function DetailPage() {
         {/* Star Detail */}
 
         {/* Time language Detail */}
-        <ExtraDetail data={data?.data} />
+        <ExtraDetail data={data?.data} typeOf={type} />
         {/* Time language Detail */}
 
         {/* Genres Detail */}
@@ -142,12 +142,14 @@ function DetailPage() {
               </p>
             ))}
           </div>
-          <button
-            className="bg-prime-200 px-3 py-2 text-md  rounded-lg font-normal cursor-pointer tracking-wide hover:brightness-125 transition-all duration-300 mt-3"
-            onClick={() => setShowMore((m) => !m)}
-          >
-            {showMore ? "Show less" : "Show more"}
-          </button>
+          {casts?.length > 10 && (
+            <button
+              className="bg-prime-200 px-3 py-2 text-md  rounded-lg font-normal cursor-pointer tracking-wide hover:brightness-125 transition-all duration-300 mt-3"
+              onClick={() => setShowMore((m) => !m)}
+            >
+              {showMore ? "Show less" : "Show more"}
+            </button>
+          )}
         </div>
         {/* Casts */}
 

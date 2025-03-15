@@ -18,8 +18,9 @@ const getListsFromGenre = async (req, res) => {
       ...results.data,
     });
   } catch (error) {
-    console.error("Error in fetch operations: ", error);
-    res.status(500).send("Error running fetch operations");
+    res
+      .status(500)
+      .json({ success: false, message: "Error running fetch operations" });
   }
 };
 
@@ -63,8 +64,9 @@ const getLists = async (req, res) => {
       ...results.data,
     });
   } catch (error) {
-    console.error("Error in fetch operations: ", error);
-    res.status(500).send("Error running fetch operations");
+    res
+      .status(500)
+      .json({ success: false, message: "Error running fetch operations" });
   }
 };
 
@@ -73,20 +75,21 @@ const getDataDetail = async (req, res) => {
 
   try {
     const dataResults = await fetchWithErrorHandlingForHome({
-      url: `${baseUrl}/${typeOfData}/${id}?&api_key=${apiKey}`,
+      url: `${baseUrl}/${typeOfData}/${id}?api_key=${apiKey}`,
       label: id,
       type: typeOfData,
     });
     const castsResults = await fetchWithErrorHandlingForHome({
-      url: `${baseUrl}/${typeOfData}/${id}/credits?language=en&&api_key=${apiKey}`,
+      url: `${baseUrl}/${typeOfData}/${id}/credits?language=en&api_key=${apiKey}`,
       label: id,
       type: typeOfData,
     });
 
     res.status(200).json({ ...dataResults, casts: castsResults?.data?.cast });
   } catch (error) {
-    console.error("Error in fetch operations: ", error);
-    res.status(500).send("Error running fetch operations");
+    res
+      .status(500)
+      .json({ success: false, message: "Error running fetch operations" });
   }
 };
 

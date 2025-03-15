@@ -33,6 +33,8 @@ function ListPage() {
       },
     });
 
+  console.log(data);
+
   function handleScroll() {
     const bottom =
       window.innerHeight + window.scrollY >=

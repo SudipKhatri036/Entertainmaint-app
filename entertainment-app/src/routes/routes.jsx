@@ -40,10 +40,6 @@ const router = createBrowserRouter([
         element: <DetailPage />,
       },
       {
-        path: "/tv/:id",
-        element: <DetailPage />,
-      },
-      {
         path: "/results",
         element: <ResultPage />,
       },

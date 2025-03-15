@@ -25,7 +25,7 @@ function SliderCard({ cardData, type }) {
         </p>
         <span className="w-1 h-1 rounded-full bg-white"></span>
         <div className="flex items-center gap-1 font-light">
-          {type === "movies" ? (
+          {type === "movie" ? (
             <>
               <MdMovieCreation />
               <p>Movie</p>
