@@ -13,7 +13,7 @@ const { bookmarkRouter } = require("./routes/bookmarkRoutes");
 const port = process.env.PORT || 3000;
 
 const corsOpt = {
-  origin: "http://localhost:5173",
+  origin: process.env.FRONTEND_URL,
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
 };
