@@ -18,6 +18,8 @@ const corsOpt = {
   credentials: true,
 };
 
+console.log(process.env.FRONTEND_URL);
+
 app.use(cors(corsOpt));
 app.use(cookieParser());
 app.use(express.json());
